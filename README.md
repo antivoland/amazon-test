@@ -34,7 +34,7 @@ Note: the examples above are using Scala syntax, don't try to emulate it - use t
 
 ## BONUS QUESTIONS
 
-1. What are the computational complexities for the operations that you have implemented</p>
+1. What are the computational complexities for the operations that you have implemented
 
 2. What guarantees your implementation provide regarding concurrent access and modification
 
