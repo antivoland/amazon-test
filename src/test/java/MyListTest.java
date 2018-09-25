@@ -8,34 +8,40 @@ public class MyListTest {
     @Test
     public void testReversing() {
         Assert.assertArrayEquals(
-                MyListA.of(1, 2, 3, 4).reverse().asArray(),
-                new Number[]{4, 3, 2, 1});
+                new Number[]{4, 3, 2, 1},
+                MyListA.of(1, 2, 3, 4).reverse().asArray());
     }
 
     @Test
     public void testFiltering() {
         Assert.assertArrayEquals(
-                MyListA.of(1, 2, 3, 4).filter(x -> x % 2 == 0).asArray(),
-                new Number[]{2, 4});
+                new Number[]{2, 4},
+                MyListA.of(1, 2, 3, 4).filter(x -> x % 2 == 0).asArray());
     }
 
     @Test
     public void testMapping() {
         Assert.assertArrayEquals(
-                MyListA.of("foo", "bar", "baz", "boom").map(x -> x.length()).asArray(),
-                new Number[]{3, 3, 3, 4});
+                new Number[]{3, 3, 3, 4},
+                MyListA.of("foo", "bar", "baz", "boom").map(x -> x.length()).asArray());
         Assert.assertArrayEquals(
-                MyListA.of("foo", "bar", "baz").map(x -> x.toUpperCase()).asArray(),
-                new String[]{"FOO", "BAR", "BAZ"});
+                new String[]{"FOO", "BAR", "BAZ"},
+                MyListA.of("foo", "bar", "baz").map(x -> x.toUpperCase()).asArray());
     }
 
     @Test
     public void testFoldingLeft() {
+        // associative
         Assert.assertEquals(
-                (long) MyListA.of("foo", "bar", "baz", "boom").foldLeft(0, (a, x) -> a + x.length()),
-                13L);
+                13L,
+                (long) MyListA.of("foo", "bar", "baz", "boom").foldLeft(0, (a, x) -> a + x.length()));
         Assert.assertEquals(
-                MyListA.of("foo", "bar", "baz").foldLeft("", (a, x) -> a + x),
-                "foobarbaz");
+                "foobarbaz",
+                MyListA.of("foo", "bar", "baz").foldLeft("", (a, x) -> a + x));
+
+        // non-associative
+        Assert.assertEquals(
+                1L,
+                (long) MyListA.of(20, 5).foldLeft(100, (a, x) -> a / x));
     }
 }

@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -25,19 +24,23 @@ public class MyListA<VALUE> implements MyList<VALUE> {
     @Override
     @SuppressWarnings("unchecked")
     public MyList<VALUE> filter(Function<VALUE, Boolean> filter) {
-        return new MyListA<>((VALUE[]) Arrays.stream(values)
-                .map(value -> (VALUE) value)
-                .filter(filter::apply)
-                .toArray());
+        Queue<VALUE> filtered = new Queue<>();
+        for (Object value : values) {
+            if (filter.apply((VALUE) value)) {
+                filtered.enqueue((VALUE) value);
+            }
+        }
+        return new MyListA<>(filtered.dequeueAll());
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <MAPPED> MyList<MAPPED> map(Function<VALUE, MAPPED> mapper) {
-        return new MyListA<>((MAPPED[]) Arrays.stream(values)
-                .map(value -> (VALUE) value)
-                .map(mapper)
-                .toArray());
+        Object[] mapped = new Object[values.length];
+        for (int i = 0, l = values.length; i < l; ++i) {
+            mapped[i] = mapper.apply((VALUE) values[i]);
+        }
+        return new MyListA<>((MAPPED[]) mapped);
     }
 
     @Override
