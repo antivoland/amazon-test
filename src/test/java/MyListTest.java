@@ -5,7 +5,7 @@ import org.junit.Test;
  */
 public class MyListTest {
     @Test
-    public void test() {
+    public void testReverse() {
         // todo: implement
     }
 }
