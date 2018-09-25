@@ -8,7 +8,7 @@ import java.util.function.Function;
 public class MyList<VALUE> {
     private final Object[] values;
 
-    public MyList(VALUE... values) {
+    private MyList(VALUE[] values) {
         this.values = values;
     }
 
@@ -51,12 +51,16 @@ public class MyList<VALUE> {
         return Arrays.toString(values);
     }
 
+    public static <VALUE> MyList<VALUE> of(VALUE... values) {
+        return new MyList<>(values);
+    }
+
     public static void main(String[] args) {
-        System.out.println(new MyList<>(1, 2, 3, 4).reverse());
-        System.out.println(new MyList<>(1, 2, 3, 4).filter(x -> x % 2 == 0));
-        System.out.println(new MyList<>("foo", "bar", "baz", "boom").map(x -> x.length()));
-        System.out.println(new MyList<>("foo", "bar", "baz").map(x -> x.toUpperCase()));
-        System.out.println(new MyList<>("foo", "bar", "baz", "boom").foldLeft(0, (a, x) -> a + x.length()));
-        System.out.println(new MyList<>("foo", "bar", "baz").foldLeft("", (a, x) -> a + x));
+        System.out.println(MyList.of(1, 2, 3, 4).reverse());
+        System.out.println(MyList.of(1, 2, 3, 4).filter(x -> x % 2 == 0));
+        System.out.println(MyList.of("foo", "bar", "baz", "boom").map(x -> x.length()));
+        System.out.println(MyList.of("foo", "bar", "baz").map(x -> x.toUpperCase()));
+        System.out.println(MyList.of("foo", "bar", "baz", "boom").foldLeft(0, (a, x) -> a + x.length()));
+        System.out.println(MyList.of("foo", "bar", "baz").foldLeft("", (a, x) -> a + x));
     }
 }
