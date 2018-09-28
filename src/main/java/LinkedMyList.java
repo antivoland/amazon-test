@@ -108,8 +108,18 @@ public class LinkedMyList<VALUE> implements MyList<VALUE> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <MAPPED> MyList<MAPPED> map(Function<VALUE, MAPPED> mapper) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        Object[] mapped = new Object[size];
+        if (size > 0) {
+            int i = 0;
+            Node node = traverser.first();
+            do {
+                mapped[i] = mapper.apply(node.value);
+                ++i;
+            } while ((node = traverser.next(node)) != null);
+        }
+        return new LinkedMyList<>((MAPPED[]) mapped);
     }
 
     @Override
