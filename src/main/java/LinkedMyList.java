@@ -97,7 +97,14 @@ public class LinkedMyList<VALUE> implements MyList<VALUE> {
 
     @Override
     public MyList<VALUE> filter(Function<VALUE, Boolean> filter) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        Queue<VALUE> filtered = new Queue<>();
+        Node node = traverser.first();
+        do {
+            if (filter.apply(node.value)) {
+                filtered.enqueue(node.value);
+            }
+        } while ((node = traverser.next(node)) != null);
+        return of(filtered.dequeueAll());
     }
 
     @Override
@@ -107,7 +114,12 @@ public class LinkedMyList<VALUE> implements MyList<VALUE> {
 
     @Override
     public <FOLDED> FOLDED foldLeft(FOLDED identity, BiFunction<FOLDED, VALUE, FOLDED> reducer) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        FOLDED folded = identity;
+        Node node = traverser.first();
+        do {
+            folded = reducer.apply(folded, node.value);
+        } while ((node = traverser.next(node)) != null);
+        return folded;
     }
 
     @Override
