@@ -6,42 +6,45 @@ import org.junit.Test;
  */
 public class MyListTest {
     @Test
-    public void testReversing() {
+    public void testArrayMyList() {
+        test(ArrayMyList.FACTORY);
+    }
+
+    @Test
+    public void testLinkedMyList() {
+        test(LinkedMyList.FACTORY);
+    }
+
+    void test(MyList.Factory factory) {
+        // test reversing
         Assert.assertArrayEquals(
                 new Number[]{4, 3, 2, 1},
-                ArrayMyList.of(1, 2, 3, 4).reverse().asArray());
-    }
+                factory.create(1, 2, 3, 4).reverse().asArray());
 
-    @Test
-    public void testFiltering() {
+        // test filtering
         Assert.assertArrayEquals(
                 new Number[]{2, 4},
-                ArrayMyList.of(1, 2, 3, 4).filter(x -> x % 2 == 0).asArray());
-    }
+                factory.create(1, 2, 3, 4).filter(x -> x % 2 == 0).asArray());
 
-    @Test
-    public void testMapping() {
+        // test mapping
         Assert.assertArrayEquals(
                 new Number[]{3, 3, 3, 4},
-                ArrayMyList.of("foo", "bar", "baz", "boom").map(x -> x.length()).asArray());
+                factory.create("foo", "bar", "baz", "boom").map(x -> x.length()).asArray());
         Assert.assertArrayEquals(
                 new String[]{"FOO", "BAR", "BAZ"},
-                ArrayMyList.of("foo", "bar", "baz").map(x -> x.toUpperCase()).asArray());
-    }
+                factory.create("foo", "bar", "baz").map(x -> x.toUpperCase()).asArray());
 
-    @Test
-    public void testFoldingLeft() {
-        // associative
+        // test associative folding left
         Assert.assertEquals(
                 13L,
-                (long) ArrayMyList.of("foo", "bar", "baz", "boom").foldLeft(0, (a, x) -> a + x.length()));
+                (long) factory.create("foo", "bar", "baz", "boom").foldLeft(0, (a, x) -> a + x.length()));
         Assert.assertEquals(
                 "foobarbaz",
-                ArrayMyList.of("foo", "bar", "baz").foldLeft("", (a, x) -> a + x));
+                factory.create("foo", "bar", "baz").foldLeft("", (a, x) -> a + x));
 
-        // non-associative
+        // test non-associative folding left
         Assert.assertEquals(
                 1L,
-                (long) ArrayMyList.of(20, 5).foldLeft(100, (a, x) -> a / x));
+                (long) factory.create(20, 5).foldLeft(100, (a, x) -> a / x));
     }
 }
