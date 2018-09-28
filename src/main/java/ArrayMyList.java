@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -59,11 +60,18 @@ public class ArrayMyList<VALUE> implements MyList<VALUE> {
         return folded;
     }
 
-    // O(1)
+    // O(N)
     @Override
     @SuppressWarnings("unchecked")
-    public VALUE[] asArray() {
-        return (VALUE[]) values;
+    public VALUE[] toArray() {
+        Object[] copy = new Object[values.length];
+        System.arraycopy(values, 0, copy, 0, values.length);
+        return (VALUE[]) copy;
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.toString(values);
     }
 
     @SafeVarargs
