@@ -5,6 +5,7 @@ class Queue<VALUE> {
     private Object[] values = new Object[1];
     private int last = -1;
 
+    // amortized O(1)
     void enqueue(VALUE value) {
         ++last;
         if (last == values.length) {
@@ -15,6 +16,7 @@ class Queue<VALUE> {
         values[last] = value;
     }
 
+    // O(N)
     @SuppressWarnings("unchecked")
     VALUE[] dequeueAll() {
         if (last < 0) {

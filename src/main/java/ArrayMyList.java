@@ -4,13 +4,16 @@ import java.util.function.Function;
 /**
  * @author antivoland
  */
-public class MyListA<VALUE> implements MyList<VALUE> {
+public class ArrayMyList<VALUE> implements MyList<VALUE> {
+    public static final Factory FACTORY = ArrayMyList::of;
+
     private final Object[] values;
 
-    private MyListA(VALUE[] values) {
+    private ArrayMyList(VALUE[] values) {
         this.values = values;
     }
 
+    // O(N)
     @Override
     @SuppressWarnings("unchecked")
     public MyList<VALUE> reverse() {
@@ -18,21 +21,23 @@ public class MyListA<VALUE> implements MyList<VALUE> {
         for (int i = 0, l = values.length; i < l; ++i) {
             reversed[i] = values[l - i - 1];
         }
-        return new MyListA<>((VALUE[]) reversed);
+        return new ArrayMyList<>((VALUE[]) reversed);
     }
 
+    // O(N)
     @Override
     @SuppressWarnings("unchecked")
     public MyList<VALUE> filter(Function<VALUE, Boolean> filter) {
         Queue<VALUE> filtered = new Queue<>();
-        for (Object value : values) {
+        for (Object value : values) {            // N times
             if (filter.apply((VALUE) value)) {
-                filtered.enqueue((VALUE) value);
+                filtered.enqueue((VALUE) value); // N times in worst case
             }
         }
-        return new MyListA<>(filtered.dequeueAll());
+        return new ArrayMyList<>(filtered.dequeueAll());
     }
 
+    // O(N)
     @Override
     @SuppressWarnings("unchecked")
     public <MAPPED> MyList<MAPPED> map(Function<VALUE, MAPPED> mapper) {
@@ -40,9 +45,10 @@ public class MyListA<VALUE> implements MyList<VALUE> {
         for (int i = 0, l = values.length; i < l; ++i) {
             mapped[i] = mapper.apply((VALUE) values[i]);
         }
-        return new MyListA<>((MAPPED[]) mapped);
+        return new ArrayMyList<>((MAPPED[]) mapped);
     }
 
+    // O(N)
     @Override
     @SuppressWarnings("unchecked")
     public <FOLDED> FOLDED foldLeft(FOLDED identity, BiFunction<FOLDED, VALUE, FOLDED> reducer) {
@@ -53,13 +59,15 @@ public class MyListA<VALUE> implements MyList<VALUE> {
         return folded;
     }
 
+    // O(1)
     @Override
     @SuppressWarnings("unchecked")
     public VALUE[] asArray() {
         return (VALUE[]) values;
     }
 
-    public static <VALUE> MyListA<VALUE> of(VALUE... values) {
-        return new MyListA<>(values);
+    @SafeVarargs
+    public static <VALUE> ArrayMyList<VALUE> of(VALUE... values) {
+        return new ArrayMyList<>(values);
     }
 }

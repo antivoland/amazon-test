@@ -14,4 +14,8 @@ public interface MyList<VALUE> {
     <FOLDED> FOLDED foldLeft(FOLDED identity, BiFunction<FOLDED, VALUE, FOLDED> reducer);
 
     VALUE[] asArray();
+
+    interface Factory {
+        <VALUE> MyList<VALUE> create(VALUE... values);
+    }
 }
