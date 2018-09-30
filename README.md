@@ -88,7 +88,9 @@ Parallel implementation splits input values onto sublists and may execute its op
 
 You need specify chunk size (then it will be ⌈N/chunkSize⌉ chunks total) and executor service. Each chunk will be processed in parallel (except folding left as I said before).
 
-Filtering method may be optimized of course.
+Filtering method may be optimized.
+
+We can further serialize in some way our sublists and operators and compute the result using a distributed computing cluster instead of running on a single server.
 
 ### Empty MyList
 
