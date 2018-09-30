@@ -45,3 +45,57 @@ Note: the examples above are using Scala syntax, don't try to emulate it - use t
 \[2]: https://en.wikipedia.org/wiki/Map_(higher-order_function)
 
 \[3]: https://en.wikipedia.org/wiki/Fold_(higher-order_function)
+
+## Solution
+
+### Array-based MyList
+
+See. [ArrayMyList](src/main/java/ArrayMyList.java)
+
+Its methods are thread safe due to immutable state.
+
+Table of complexities:
+
+| Method   | Complexity |
+| -------- | ---------- |
+| new      | O(1)       |
+| reverse  | O(N)       |
+| filter   | O(N)       |
+| map      | O(N)       |
+| foldLeft | O(N)       |
+
+### MyList based on linked list
+
+See. [LinkedMyList](src/main/java/LinkedMyList.java). 
+
+Its methods are thread safe due to immutable state.
+
+Table of complexities:
+
+| Method   | Complexity |
+| -------- | ---------- |
+| new      | O(N)       |
+| reverse  | O(1)       |
+| filter   | O(N)       |
+| map      | O(N)       |
+| foldLeft | O(N)       |
+
+### Parallel MyList
+
+See. [ParallelMyList](src/main/java/ParallelMyList.java). 
+
+Parallel implementation splits input values onto sublists and may execute its operations in parallel (except folding left due to non-associative behavior).
+
+You need specify chunk size (then it will be ⌈N/chunkSize⌉ chunks total) and executor service. Each chunk will be processed in parallel (except folding left as I said before).
+
+Filtering method may be optimized of course.
+
+### Empty MyList
+
+See. [EmptyMyList](src/main/java/EmptyMyList.java). 
+
+I also added implementation of empty list, but did not actually apply it anywhere.
+
+### Testing
+
+I added tests for all the structures I implemented. See [corresponding folder](src/test/java).
