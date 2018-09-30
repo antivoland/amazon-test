@@ -30,7 +30,7 @@ class Chunker<VALUE> implements Closeable {
         int bufferSize = bufferIndex > 0 ? bufferIndex : buffer.length;
         Object[] flushed = new Object[bufferSize];
         System.arraycopy(buffer, 0, flushed, 0, bufferSize);
-        chunkConsumer.accept(factory.create((VALUE[]) flushed));
+        chunkConsumer.accept(factory.listFrom((VALUE[]) flushed));
     }
 
     @Override

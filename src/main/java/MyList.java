@@ -13,9 +13,13 @@ public interface MyList<VALUE> {
 
     <FOLDED> FOLDED foldLeft(FOLDED identity, BiFunction<FOLDED, VALUE, FOLDED> reducer);
 
-    VALUE[] toArray();
+    Object[] toArray();
 
     interface Factory {
-        <VALUE> MyList<VALUE> create(VALUE[] values);
+        <VALUE> MyList<VALUE> listFrom(VALUE[] values);
+
+        default <VALUE> MyList<VALUE> listOf(VALUE... values) {
+            return listFrom(values);
+        }
     }
 }

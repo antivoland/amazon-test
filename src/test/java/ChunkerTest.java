@@ -22,7 +22,7 @@ public class ChunkerTest {
     };
     private static final MyList.Factory UNSUPPORTED_FACTORY = new MyList.Factory() {
         @Override
-        public <VALUE> MyList<VALUE> create(VALUE[] values) {
+        public <VALUE> MyList<VALUE> listFrom(VALUE[] values) {
             throw new UnsupportedOperationException("Method is not supported");
         }
     };

@@ -63,11 +63,10 @@ public class ArrayMyList<VALUE> implements MyList<VALUE> {
 
     // O(N)
     @Override
-    @SuppressWarnings("unchecked")
-    public VALUE[] toArray() {
+    public Object[] toArray() {
         Object[] copy = new Object[values.length];
         System.arraycopy(values, 0, copy, 0, values.length);
-        return (VALUE[]) copy;
+        return copy;
     }
 
     @Override

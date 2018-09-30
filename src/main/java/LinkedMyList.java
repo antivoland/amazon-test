@@ -140,8 +140,7 @@ public class LinkedMyList<VALUE> implements MyList<VALUE> {
 
     // O(N)
     @Override
-    @SuppressWarnings("unchecked")
-    public VALUE[] toArray() {
+    public Object[] toArray() {
         Object[] values = new Object[size];
         if (size > 0) {
             int i = 0;
@@ -151,7 +150,7 @@ public class LinkedMyList<VALUE> implements MyList<VALUE> {
                 ++i;
             } while ((node = traverser.next(node)) != null);
         }
-        return (VALUE[]) values;
+        return values;
     }
 
     @Override
