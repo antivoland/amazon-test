@@ -1,10 +1,21 @@
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @author antivoland
  */
 public class MyListTest {
+    private static final ExecutorService THREAD_POOL = Executors.newFixedThreadPool(5);
+
+    @AfterClass
+    public static void destroy() {
+        THREAD_POOL.shutdownNow();
+    }
+
     @Test
     public void testArrayMyList() {
         test(ArrayMyList.FACTORY);
@@ -13,6 +24,12 @@ public class MyListTest {
     @Test
     public void testLinkedMyList() {
         test(LinkedMyList.FACTORY);
+    }
+
+    @Test
+    public void testParallelMyList() {
+        test(ParallelMyList.factory(2, ArrayMyList.FACTORY, THREAD_POOL));
+        test(ParallelMyList.factory(2, LinkedMyList.FACTORY, THREAD_POOL));
     }
 
     void test(MyList.Factory factory) {

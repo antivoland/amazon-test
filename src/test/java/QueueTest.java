@@ -7,7 +7,9 @@ import org.junit.Test;
 public class QueueTest {
     @Test
     public void testEmpty() {
-        Assert.assertArrayEquals(new Object[0], new Queue<>().dequeueAll());
+        Queue<Object> queue = new Queue<>();
+        Assert.assertTrue(queue.empty());
+        Assert.assertArrayEquals(new Object[0], queue.dequeueAll());
     }
 
     @Test
@@ -17,20 +19,22 @@ public class QueueTest {
 
     @Test
     public void test() {
-        Queue<Number> queue = new Queue<>();
+        Queue<Object> queue = new Queue<>();
         queue.enqueue(1);
         queue.enqueue(2);
         queue.enqueue(3);
-        Assert.assertArrayEquals(new Number[]{1, 2, 3}, queue.dequeueAll());
-        Assert.assertArrayEquals(new String[0], new Queue<String>().dequeueAll());
+        Assert.assertEquals(1, queue.dequeue());
+        Assert.assertEquals(2, queue.dequeue());
+        Assert.assertEquals(3, queue.dequeue());
+        Assert.assertTrue(queue.empty());
 
         queue.enqueue(4);
         queue.enqueue(5);
-        Assert.assertArrayEquals(new Number[]{4, 5}, queue.dequeueAll());
-        Assert.assertArrayEquals(new String[0], new Queue<String>().dequeueAll());
+        Assert.assertArrayEquals(new Object[]{4, 5}, queue.dequeueAll());
+        Assert.assertTrue(queue.empty());
 
         queue.enqueue(6);
-        Assert.assertArrayEquals(new Number[]{6}, queue.dequeueAll());
-        Assert.assertArrayEquals(new String[0], new Queue<String>().dequeueAll());
+        Assert.assertArrayEquals(new Object[]{6}, queue.dequeueAll());
+        Assert.assertTrue(queue.empty());
     }
 }
