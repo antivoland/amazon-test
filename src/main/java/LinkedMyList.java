@@ -64,6 +64,7 @@ public class LinkedMyList<VALUE> implements MyList<VALUE> {
     private Node right;
     private Traverser traverser;
 
+    // O(N)
     @SuppressWarnings("unchecked")
     private LinkedMyList(VALUE[] values) {
         this.size = values.length;
@@ -83,6 +84,7 @@ public class LinkedMyList<VALUE> implements MyList<VALUE> {
         this.traverser = new LTRTraverser();
     }
 
+    // O(1)
     private LinkedMyList(int size, Node left, Node right, Traverser traverser) {
         this.size = size;
         this.left = left;
@@ -90,23 +92,26 @@ public class LinkedMyList<VALUE> implements MyList<VALUE> {
         this.traverser = traverser;
     }
 
+    // O(1)
     @Override
     public MyList<VALUE> reverse() {
         return new LinkedMyList<>(size, left, right, traverser.reversed());
     }
 
+    // O(N)
     @Override
     public MyList<VALUE> filter(Function<VALUE, Boolean> filter) {
         Queue<VALUE> filtered = new Queue<>();
         Node node = traverser.first();
         do {
             if (filter.apply(node.value)) {
-                filtered.enqueue(node.value);
+                filtered.enqueue(node.value);            // N times in worst case
             }
-        } while ((node = traverser.next(node)) != null);
-        return of(filtered.dequeueAll());
+        } while ((node = traverser.next(node)) != null); // N times
+        return new LinkedMyList<>(filtered.dequeueAll());
     }
 
+    // O(N)
     @Override
     @SuppressWarnings("unchecked")
     public <MAPPED> MyList<MAPPED> map(Function<VALUE, MAPPED> mapper) {
@@ -122,6 +127,7 @@ public class LinkedMyList<VALUE> implements MyList<VALUE> {
         return new LinkedMyList<>((MAPPED[]) mapped);
     }
 
+    // O(N)
     @Override
     public <FOLDED> FOLDED foldLeft(FOLDED identity, BiFunction<FOLDED, VALUE, FOLDED> reducer) {
         FOLDED folded = identity;
@@ -132,6 +138,7 @@ public class LinkedMyList<VALUE> implements MyList<VALUE> {
         return folded;
     }
 
+    // O(N)
     @Override
     @SuppressWarnings("unchecked")
     public VALUE[] toArray() {

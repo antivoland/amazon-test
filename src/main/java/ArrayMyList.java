@@ -10,6 +10,7 @@ public class ArrayMyList<VALUE> implements MyList<VALUE> {
 
     private final Object[] values;
 
+    // O(1)
     private ArrayMyList(VALUE[] values) {
         this.values = values;
     }

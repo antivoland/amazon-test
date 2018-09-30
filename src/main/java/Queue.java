@@ -6,7 +6,7 @@ class Queue<VALUE> {
     private int last = -1;
 
     // amortized O(1)
-    void enqueue(VALUE value) {
+    Queue<VALUE> enqueue(VALUE value) {
         ++last;
         if (last == values.length) {
             Object[] doubled = new Object[values.length * 2];
@@ -14,6 +14,7 @@ class Queue<VALUE> {
             values = doubled;
         }
         values[last] = value;
+        return this;
     }
 
     // O(N)
