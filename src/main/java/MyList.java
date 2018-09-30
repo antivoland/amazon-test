@@ -16,6 +16,6 @@ public interface MyList<VALUE> {
     VALUE[] toArray();
 
     interface Factory {
-        <VALUE> MyList<VALUE> create(VALUE... values);
+        <VALUE> MyList<VALUE> create(VALUE[] values);
     }
 }
