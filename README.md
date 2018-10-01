@@ -50,7 +50,7 @@ Note: the examples above are using Scala syntax, don't try to emulate it - use t
 
 ### Array-based MyList
 
-See. [ArrayMyList](src/main/java/ArrayMyList.java)
+See [ArrayMyList](src/main/java/ArrayMyList.java)
 
 Its methods are thread safe due to immutable state.
 
@@ -66,7 +66,7 @@ Table of complexities:
 
 ### MyList based on linked list
 
-See. [LinkedMyList](src/main/java/LinkedMyList.java). 
+See [LinkedMyList](src/main/java/LinkedMyList.java). 
 
 Its methods are thread safe due to immutable state.
 
@@ -82,7 +82,7 @@ Table of complexities:
 
 ### Parallel MyList
 
-See. [ParallelMyList](src/main/java/ParallelMyList.java). 
+See [ParallelMyList](src/main/java/ParallelMyList.java). 
 
 Parallel implementation splits input values onto sublists and may execute its operations in parallel (except folding left due to non-associative behavior).
 
@@ -94,7 +94,7 @@ We can further serialize in some way our sublists and operators and compute the 
 
 ### Empty MyList
 
-See. [EmptyMyList](src/main/java/EmptyMyList.java). 
+See [EmptyMyList](src/main/java/EmptyMyList.java). 
 
 I also added implementation of empty list, but did not actually apply it anywhere.
 
